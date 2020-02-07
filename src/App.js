@@ -1,26 +1,65 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import HeadFoot from "./components/HeadFoot";
+import { contextApp } from "./contexts/state";
+import "./App.css";
+import { Link } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class HelloMessage extends Component {
+  constructor() {
+    super();
+    this.state = {
+      week: 2
+    };
+  }
+  // static defaultProps = {
+  //   batch: 15,
+  //   city: "Jakarta"
+  // };
+  // changeState = () => {
+  //   setTimeout(() => {
+  //     this.setState({
+  //       week: 3
+  //     });
+  //   }, 2000);
+  // };
+
+  componentDidMount = () => {
+    console.log("did mount");
+    // this.changeState();
+  };
+  componentDidUpdate = (prevProps, prevState) => {
+    console.log("prevProps", prevProps);
+    console.log("prevState", prevState);
+  };
+
+  render() {
+    return (
+      <div className="main">
+        <contextApp.Provider value={this.state.week}>
+          <HeadFoot title="Header" />
+          <p className="main">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
+            laboriosam maxime beatae, non eligendi dicta doloribus itaque
+            excepturi ratione veniam ipsam earum vel autem repudiandae harum
+            expedita in illo obcaecati.
+          </p>
+          <p>
+            Minggu ke-{this.state.week} Batch-{this.props.batch || 15} di kota{" "}
+            {this.props.city || "Jakarta"}
+          </p>
+          <Link to="/profile">
+            <button>Profile</button>
+          </Link>
+          <HeadFoot title="Footer" />
+        </contextApp.Provider>
+      </div>
+    );
+  }
 }
 
-export default App;
+// HelloMessage.defaultProps = {
+//   batch: 14,
+//   city: "Depok"
+// };
+
+export default HelloMessage;

@@ -3,6 +3,7 @@ import HeadFoot from "./components/HeadFoot";
 import { contextApp } from "./contexts/state";
 import "./App.css";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 class HelloMessage extends Component {
   constructor() {
@@ -33,6 +34,7 @@ class HelloMessage extends Component {
   };
 
   render() {
+    console.log("props", this.props.user);
     return (
       <div className="main">
         <contextApp.Provider value={this.state.week}>
@@ -62,4 +64,10 @@ class HelloMessage extends Component {
 //   city: "Depok"
 // };
 
-export default HelloMessage;
+const mapStateToProps = ({ user }) => {
+  return {
+    user // user: user
+  };
+};
+
+export default connect(mapStateToProps)(HelloMessage);

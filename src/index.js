@@ -5,19 +5,23 @@ import App from "./App";
 import Profile from "./components/Profile";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
-class AppWithRouter extends React.Component {
-  render() {
-    return (
-      <Router>
-        <Route path="/" exact component={App} /> {/* localhost:3000/ */}
-        <Route path="/profile" component={Profile} /> {/* localhost:3000/profile */}
-      </Router>
-    );
-  }
-}
+const AppWithRouter = () => (
+  <Router>
+    <Route path="/" exact component={App} /> {/* localhost:3000/ */}
+    <Route path="/profile" component={Profile} /> {/* localhost:3000/profile */}
+  </Router>
+);
 
-ReactDOM.render(<AppWithRouter />, document.getElementById("root"));
+const AppWithRedux = () => (
+  <Provider store={store}>
+    <AppWithRouter />
+  </Provider>
+);
+
+ReactDOM.render(<AppWithRedux />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
